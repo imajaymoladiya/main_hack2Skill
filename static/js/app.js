@@ -128,10 +128,14 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const targetTab = btn.getAttribute("data-tab");
       
-      tabButtons.forEach(b => b.classList.remove("active"));
+      tabButtons.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
       tabContents.forEach(c => c.classList.remove("active"));
       
       btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
       document.getElementById(targetTab).classList.add("active");
       
       if (targetTab === "tab-chat") {

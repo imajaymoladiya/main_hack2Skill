@@ -13,40 +13,40 @@
 <body>
 
   <!-- Background decorative glowing orbs -->
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="glow-orb orb-3"></div>
+  <div class="glow-orb orb-1" aria-hidden="true"></div>
+  <div class="glow-orb orb-2" aria-hidden="true"></div>
+  <div class="glow-orb orb-3" aria-hidden="true"></div>
 
   <!-- Header Section -->
-  <header>
+  <header role="banner">
     <div class="logo-container">
-      <span class="logo-icon">🧘</span>
+      <span class="logo-icon" aria-hidden="true">🧘</span>
       <div>
         <h1>ZenExam AI</h1>
         <p class="subtitle">Academic Journey Wellness Companion & Stress Analyzer</p>
       </div>
     </div>
-    <div class="status-badge" id="backend-status-badge">
+    <div class="status-badge" id="backend-status-badge" role="status" aria-live="polite" aria-label="Server status">
       <span class="pulse-dot"></span> Checking connection...
     </div>
   </header>
 
   <!-- Main Dashboard Grid -->
-  <main>
+  <main role="main">
     <div class="layout-grid">
       
       <!-- Left Configuration & Mindfulness Sidebar -->
-      <aside class="sidebar-column">
+      <aside class="sidebar-column" role="complementary" aria-label="Mindfulness and Settings Panel">
         
         <!-- Prep Configuration Card -->
-        <section class="card config-card" id="config-card-sec">
-          <h2 class="section-title"><span>⚙️</span> Prep Profile</h2>
+        <section class="card config-card" id="config-card-sec" role="region" aria-labelledby="config-heading">
+          <h2 class="section-title" id="config-heading"><span>⚙️</span> Prep Profile</h2>
           <form id="wellness-config-form" onsubmit="event.preventDefault();">
             
             <!-- Exam Selector -->
             <div class="form-group">
               <label class="form-label" for="exam-select">Competitive Entrance / Board Exam</label>
-              <select class="select-input" id="exam-select" name="exam">
+              <select class="select-input" id="exam-select" name="exam" aria-label="Select Target Competitive Exam">
                 <option value="JEE">JEE (Joint Entrance Examination)</option>
                 <option value="NEET">NEET (National Eligibility cum Entrance Test)</option>
                 <option value="UPSC">UPSC Civil Services Examination</option>
@@ -58,41 +58,41 @@
             </div>
 
             <!-- Mood Selector -->
-            <div class="form-group">
-              <label class="form-label">How do you feel right now?</label>
+            <div class="form-group" role="group" aria-labelledby="mood-select-heading">
+              <span class="form-label" id="mood-select-heading">How do you feel right now?</span>
               <div class="mood-selector-grid">
                 <div class="mood-radio-item">
                   <input type="radio" id="mood-calm" name="mood" value="calm" checked>
                   <label for="mood-calm" class="mood-label">
-                    <span class="mood-emoji">😌</span>
+                    <span class="mood-emoji" aria-hidden="true">😌</span>
                     <span class="mood-name">Calm</span>
                   </label>
                 </div>
                 <div class="mood-radio-item">
                   <input type="radio" id="mood-anxious" name="mood" value="anxious">
                   <label for="mood-anxious" class="mood-label">
-                    <span class="mood-emoji">😰</span>
+                    <span class="mood-emoji" aria-hidden="true">😰</span>
                     <span class="mood-name">Anxious</span>
                   </label>
                 </div>
                 <div class="mood-radio-item">
                   <input type="radio" id="mood-focused" name="mood" value="focused">
                   <label for="mood-focused" class="mood-label">
-                    <span class="mood-emoji">🎯</span>
+                    <span class="mood-emoji" aria-hidden="true">🎯</span>
                     <span class="mood-name">Focused</span>
                   </label>
                 </div>
                 <div class="mood-radio-item">
                   <input type="radio" id="mood-burned_out" name="mood" value="burned_out">
                   <label for="mood-burned_out" class="mood-label">
-                    <span class="mood-emoji">😫</span>
+                    <span class="mood-emoji" aria-hidden="true">😫</span>
                     <span class="mood-name">Burned Out</span>
                   </label>
                 </div>
                 <div class="mood-radio-item">
                   <input type="radio" id="mood-hopeful" name="mood" value="hopeful">
                   <label for="mood-hopeful" class="mood-label">
-                    <span class="mood-emoji">🌟</span>
+                    <span class="mood-emoji" aria-hidden="true">🌟</span>
                     <span class="mood-name">Hopeful</span>
                   </label>
                 </div>
@@ -102,12 +102,12 @@
         </section>
 
         <!-- Mindfulness Breathing Card -->
-        <section class="card mindfulness-card" id="mindfulness-card-sec">
-          <h2 class="section-title"><span>🧘‍♀️</span> Guided Box Breathing</h2>
+        <section class="card mindfulness-card" id="mindfulness-card-sec" role="region" aria-labelledby="mindfulness-heading">
+          <h2 class="section-title" id="mindfulness-heading"><span>🧘‍♀️</span> Guided Box Breathing</h2>
           <p class="card-subtitle">De-escalate study pressure instantly (4s Inhale, 4s Hold, 4s Exhale, 4s Hold)</p>
           
-          <div class="breathing-container">
-            <div class="breathing-circle-outer">
+          <div class="breathing-container" role="timer" aria-live="polite" aria-label="Breathing exercise display">
+            <div class="breathing-circle-outer" aria-hidden="true">
               <div class="breathing-circle-inner" id="breathing-circle"></div>
               <div class="breathing-guide-text" id="breathing-guide">Ready</div>
             </div>
@@ -115,28 +115,28 @@
           </div>
           
           <div class="breathing-controls">
-            <button class="btn btn-primary" id="start-breathing-btn">✨ Start Exercise</button>
-            <button class="btn btn-secondary" id="stop-breathing-btn" disabled>Pause</button>
+            <button class="btn btn-primary" id="start-breathing-btn" aria-label="Start guided box breathing exercise">✨ Start Exercise</button>
+            <button class="btn btn-secondary" id="stop-breathing-btn" disabled aria-label="Pause box breathing exercise">Pause</button>
           </div>
         </section>
 
         <!-- Pomodoro Study/Rest Card -->
-        <section class="card pomodoro-card" id="pomodoro-card-sec">
-          <h2 class="section-title"><span>⏱️</span> Pomodoro Study Timer</h2>
+        <section class="card pomodoro-card" id="pomodoro-card-sec" role="region" aria-labelledby="pomodoro-heading">
+          <h2 class="section-title" id="pomodoro-heading"><span>⏱️</span> Pomodoro Study Timer</h2>
           <p class="card-subtitle">Maintain high mental accuracy by taking structured breaks</p>
           
-          <div class="timer-display-container">
+          <div class="timer-display-container" role="timer" aria-live="polite" aria-label="Study timer countdown">
             <div class="timer-display" id="timer-display">25:00</div>
             <div class="timer-type-badge" id="timer-badge">Study Session</div>
-            <div class="progress-bar-container">
+            <div class="progress-bar-container" aria-hidden="true">
               <div class="progress-bar-fill" id="timer-progress" style="width: 100%;"></div>
             </div>
           </div>
           
           <div class="timer-controls">
-            <button class="btn btn-primary" id="timer-start-btn">Start Study</button>
-            <button class="btn btn-secondary" id="timer-break-btn">Take Break</button>
-            <button class="btn btn-outline" id="timer-reset-btn">Reset</button>
+            <button class="btn btn-primary" id="timer-start-btn" aria-label="Start 25-minute study session">Start Study</button>
+            <button class="btn btn-secondary" id="timer-break-btn" aria-label="Start 5-minute mindfulness break">Take Break</button>
+            <button class="btn btn-outline" id="timer-reset-btn" aria-label="Reset Pomodoro timer">Reset</button>
           </div>
         </section>
       </aside>
@@ -145,28 +145,29 @@
       <section class="main-content-column">
         
         <!-- Navigation Tabs -->
-        <nav class="navigation-tabs">
-          <button class="tab-btn active" data-tab="tab-journal" id="nav-journal-btn">📝 Daily Journal & Analysis</button>
-          <button class="tab-btn" data-tab="tab-chat" id="nav-chat-btn">💬 MindBuddy AI Chat</button>
-          <button class="tab-btn" data-tab="tab-history" id="nav-history-btn">📊 Wellness Analytics Log</button>
+        <nav class="navigation-tabs" role="tablist" aria-label="Dashboard Views">
+          <button class="tab-btn active" data-tab="tab-journal" id="nav-journal-btn" role="tab" aria-selected="true" aria-controls="tab-journal">📝 Daily Journal & Analysis</button>
+          <button class="tab-btn" data-tab="tab-chat" id="nav-chat-btn" role="tab" aria-selected="false" aria-controls="tab-chat">💬 MindBuddy AI Chat</button>
+          <button class="tab-btn" data-tab="tab-history" id="nav-history-btn" role="tab" aria-selected="false" aria-controls="tab-history">📊 Wellness Analytics Log</button>
+          <button class="tab-btn" data-tab="tab-sanctuary" id="nav-sanctuary-btn" role="tab" aria-selected="false" aria-controls="tab-sanctuary">💡 Stress Sanctuary</button>
         </nav>
 
         <!-- Tab 1: Journaling & Analysis Content -->
-        <div class="tab-content active" id="tab-journal">
+        <div class="tab-content active" id="tab-journal" role="tabpanel" aria-labelledby="nav-journal-btn">
           
           <!-- Journaling Write Card -->
           <div class="card journal-entry-card">
-            <h2 class="section-title" style="margin-bottom: 0.5rem;">Express Your Mind</h2>
+            <h2 class="section-title" id="journal-writer-heading" style="margin-bottom: 0.5rem;">Express Your Mind</h2>
             <p class="card-subtitle" style="margin-bottom: 1.25rem;">
               Write freely about your day: mock test results, study schedules, anxiety levels, peer comparisons, or family expectations. GenAI will analyze stress patterns that standard logs miss.
             </p>
             
-            <textarea class="journal-textarea" id="journal-text-input" 
+            <textarea class="journal-textarea" id="journal-text-input" aria-labelledby="journal-writer-heading"
               placeholder="How are your preparations going? (e.g. 'I scored poorly on my physics mock test today and feel like I'll never clear JEE. My parents have high expectations and I have a huge backlog in organic chemistry...')"
             ></textarea>
             
             <div class="journal-btn-row">
-              <button class="btn btn-primary" id="analyze-journal-btn" style="padding: 0.85rem 2rem;">
+              <button class="btn btn-primary" id="analyze-journal-btn" style="padding: 0.85rem 2rem;" aria-label="Analyze Stress Triggers and Emotional State">
                 ✨ Analyze Stress Triggers & Emotional State
               </button>
             </div>
@@ -177,14 +178,14 @@
             
             <!-- State A: Placeholder View -->
             <div class="results-state-card" id="analysis-placeholder">
-              <div class="state-icon">📋</div>
+              <div class="state-icon" aria-hidden="true">📋</div>
               <h3>Waiting for Journal Entry</h3>
               <p>Type your daily notes above and click 'Analyze' to uncover stress triggers, cognitive errors, emotional distributions, and get custom study coping methods.</p>
             </div>
 
             <!-- State B: Loading View -->
-            <div class="results-state-card" id="analysis-loading" style="display: none;">
-              <div class="loader-ring">
+            <div class="results-state-card" id="analysis-loading" style="display: none;" role="status" aria-live="polite" aria-label="Loading analysis metrics">
+              <div class="loader-ring" aria-hidden="true">
                 <div></div><div></div><div></div><div></div>
                 <span class="loader-glow">🧠</span>
               </div>
@@ -201,9 +202,9 @@
             <div class="analysis-report" id="analysis-report-view" style="display: none;">
               
               <!-- Crisis Safety Intervention (Visible only on trigger) -->
-              <div class="safety-intervention-card" id="safety-warning-box" style="display: none;">
+              <div class="safety-intervention-card" id="safety-warning-box" style="display: none;" role="alert" aria-live="assertive">
                 <div class="safety-header">
-                  <span class="safety-alert-icon">⚠️</span>
+                  <span class="safety-alert-icon" aria-hidden="true">⚠️</span>
                   <div>
                     <h4>Immediate Crisis Intervention Notice</h4>
                     <p>It seems you are feeling extremely overwhelmed. Your safety is our absolute priority.</p>
@@ -225,18 +226,18 @@
                 <div class="metrics-row">
                   <!-- Stress Level -->
                   <div class="card metric-card">
-                    <span class="metric-icon">🔥</span>
+                    <span class="metric-icon" aria-hidden="true">🔥</span>
                     <div class="metric-info">
                       <div class="metric-value" id="val-stress-level">7/10</div>
                       <div class="metric-label">Stress Level</div>
                     </div>
-                    <div class="gauge-outer">
+                    <div class="gauge-outer" aria-hidden="true">
                       <div class="gauge-fill" id="stress-gauge-bar" style="width: 70%;"></div>
                     </div>
                   </div>
                   <!-- Burnout Risk -->
                   <div class="card metric-card">
-                    <span class="metric-icon">⚠️</span>
+                    <span class="metric-icon" aria-hidden="true">⚠️</span>
                     <div class="metric-info">
                       <div class="metric-value" id="val-burnout-risk">High</div>
                       <div class="metric-label">Burnout Risk</div>
@@ -250,7 +251,7 @@
                   <h3 class="analysis-card-title">Emotional State Spectrum</h3>
                   <p class="card-subtitle" style="margin-bottom: 1.25rem;">Real-time balance of key study states</p>
                   
-                  <div class="emotion-bars-container" id="emotion-distribution-bars">
+                  <div class="emotion-bars-container" id="emotion-distribution-bars" aria-label="Emotional spectrum stats">
                     <!-- Progress bars loaded dynamically -->
                   </div>
                 </div>
@@ -284,8 +285,8 @@
                       <!-- Loaded dynamically -->
                     </p>
                     
-                    <div class="motivation-quote-box" id="motivation-box">
-                      <span class="quote-mark">“</span>
+                    <div class="motivation-quote-box" id="motivation-box" aria-label="Motivational Quote panel">
+                      <span class="quote-mark" aria-hidden="true">“</span>
                       <p class="quote-text" id="motivation-text-lbl"></p>
                       <span class="exam-tag" id="exam-tag-lbl">JEE PREP</span>
                     </div>
@@ -297,12 +298,12 @@
                   <h3 class="analysis-card-title">Personalized Coping & Mindfulness Plan</h3>
                   <p class="card-subtitle" style="margin-bottom: 1.25rem;">Contextual exercises to reduce physiological anxiety</p>
                   
-                  <div class="coping-strategies-grid" id="coping-strategies-container">
+                  <div class="coping-strategies-grid" id="coping-strategies-container" aria-label="Personalized study coping tasks list">
                     <!-- Action Cards loaded dynamically -->
                   </div>
 
                   <div class="mindfulness-exercise-panel" id="mindfulness-exercise-panel">
-                    <div class="ex-icon">🧘‍♂️</div>
+                    <div class="ex-icon" aria-hidden="true">🧘‍♂️</div>
                     <div class="ex-details">
                       <h4 id="exercise-name-lbl">Mindfulness Anchor</h4>
                       <p id="exercise-instructions-lbl"></p>
@@ -319,19 +320,19 @@
         </div>
 
         <!-- Tab 2: Companion Chat Content -->
-        <div class="tab-content" id="tab-chat">
+        <div class="tab-content" id="tab-chat" role="tabpanel" aria-labelledby="nav-chat-btn">
           <div class="card chat-card-container">
             
             <div class="chat-header">
-              <span class="chat-avatar">🤖</span>
+              <span class="chat-avatar" aria-hidden="true">🤖</span>
               <div>
                 <h3>Chat with MindBuddy</h3>
-                <p class="card-subtitle" style="color: rgba(255,255,255,0.6);">Your empathetic digital companion for {Exam} prep support</p>
+                <p class="card-subtitle" style="color: rgba(255,255,255,0.6);">Your empathetic digital companion for exam prep support</p>
               </div>
             </div>
 
             <!-- Messages Window -->
-            <div class="chat-messages-window" id="chat-messages-container">
+            <div class="chat-messages-window" id="chat-messages-container" aria-live="polite" aria-label="Conversation window log">
               <!-- Automated Welcome Message -->
               <div class="message companion-message">
                 <div class="message-bubble">
@@ -341,7 +342,7 @@
             </div>
 
             <!-- Suggested chips -->
-            <div class="chat-suggested-prompts" id="chat-suggestion-chips">
+            <div class="chat-suggested-prompts" id="chat-suggestion-chips" aria-label="Suggested discussion topics">
               <button class="suggestion-chip">I feel exam panic</button>
               <button class="suggestion-chip">Struggling to focus today</button>
               <button class="suggestion-chip">I failed a mock test</button>
@@ -349,15 +350,15 @@
 
             <!-- Input bar -->
             <div class="chat-input-bar">
-              <input type="text" class="chat-input-field" id="chat-user-input" placeholder="Type your message here (e.g. 'How do I cope with backlog stress?')...">
-              <button class="btn btn-primary chat-send-btn" id="chat-send-btn">Send</button>
+              <input type="text" class="chat-input-field" id="chat-user-input" aria-label="Type message to MindBuddy" placeholder="Type your message here (e.g. 'How do I cope with backlog stress?')...">
+              <button class="btn btn-primary chat-send-btn" id="chat-send-btn" aria-label="Send message to MindBuddy">Send</button>
             </div>
 
           </div>
         </div>
 
         <!-- Tab 3: History Analysis Logs -->
-        <div class="tab-content" id="tab-history">
+        <div class="tab-content" id="tab-history" role="tabpanel" aria-labelledby="nav-history-btn">
           <div class="card history-card-container">
             <h2 class="section-title">Preparation Stress Timeline</h2>
             <p class="card-subtitle" style="margin-bottom: 1.5rem;">Track how your stress level and burnout zones evolve through your mock tests and studies</p>
@@ -378,29 +379,137 @@
             </div>
 
             <!-- History Logs list -->
-            <div class="history-list" id="history-logs-list">
+            <div class="history-list" id="history-logs-list" aria-label="Historical wellness charts timeline list">
               <!-- Logs rendered dynamically -->
               <div class="empty-history-placeholder">
-                <span class="empty-icon">📈</span>
+                <span class="empty-icon" aria-hidden="true">📈</span>
                 <p>No historical entries found yet. Complete your first journal analysis under the "Daily Journal" tab to begin tracking patterns over time.</p>
               </div>
             </div>
 
             <div class="history-actions-row" id="history-actions-bar" style="display: none; margin-top: 1.5rem; justify-content: flex-end;">
-              <button class="btn btn-outline" id="clear-history-btn" style="border-color: rgba(239, 68, 68, 0.4); color: #ef4444;">Clear History Logs</button>
+              <button class="btn btn-outline" id="clear-history-btn" style="border-color: rgba(239, 68, 68, 0.4); color: #ef4444;" aria-label="Delete all historical logs">Clear History Logs</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tab 4: Stress Sanctuary Content -->
+        <div class="tab-content" id="tab-sanctuary" role="tabpanel" aria-labelledby="nav-sanctuary-btn">
+          <div class="card sanctuary-card-container">
+            <h2 class="section-title">💡 Stress Relief Sanctuary</h2>
+            <p class="card-subtitle" style="margin-bottom: 1.5rem;">Take a cognitive break: Curated study suggestions, desk stretches, and motivational videos to recharge your mind.</p>
+            
+            <!-- Video Recommendations -->
+            <div class="sanctuary-section">
+              <h3 class="sanctuary-subheading">🎥 Curated Relaxation & Motivation Videos</h3>
+              <p class="card-subtitle" style="margin-bottom: 1rem;">Handpicked resources to lower exam anxiety and rebuild focus</p>
+              
+              <div class="video-grid">
+                <div class="video-card">
+                  <span class="video-icon" aria-hidden="true">🧘‍♂️</span>
+                  <div class="video-info">
+                    <h4>Yoga For Test Anxiety & Exam Stress</h4>
+                    <p>Gentle desk-friendly stretches designed to release neck, shoulder, and back tension from sitting.</p>
+                    <a class="video-link" href="https://www.youtube.com/watch?v=A0pkEgZiCNY" target="_blank" rel="noopener noreferrer" aria-label="Watch Yoga for Stress Relief video on YouTube">Watch on YouTube →</a>
+                  </div>
+                </div>
+                
+                <div class="video-card">
+                  <span class="video-icon" aria-hidden="true">🧠</span>
+                  <div class="video-info">
+                    <h4>Neuroscience of Focus & Study Breaks</h4>
+                    <p>Learn how to optimize memory consolidation and rest intervals to study for exams with high concentration.</p>
+                    <a class="video-link" href="https://www.youtube.com/watch?v=mD0jGzQirGE" target="_blank" rel="noopener noreferrer" aria-label="Watch Neuroscience of Focus video on YouTube">Watch on YouTube →</a>
+                  </div>
+                </div>
+                
+                <div class="video-card">
+                  <span class="video-icon" aria-hidden="true">🎼</span>
+                  <div class="video-info">
+                    <h4>Binaural Beats for Deep Study & Memory</h4>
+                    <p>Calming frequency loops to block household noise, improve memory recall, and soothe exam panic.</p>
+                    <a class="video-link" href="https://www.youtube.com/watch?v=WPni755-Krg" target="_blank" rel="noopener noreferrer" aria-label="Listen to Deep Study Binaural Beats on YouTube">Listen on YouTube →</a>
+                  </div>
+                </div>
+                
+                <div class="video-card">
+                  <span class="video-icon" aria-hidden="true">⚡</span>
+                  <div class="video-info">
+                    <h4>Feynman Method & Active Learning Hacks</h4>
+                    <p>Study less and remember more. A psychological guide to cracking heavy entrance syllabus chapters.</p>
+                    <a class="video-link" href="https://www.youtube.com/watch?v=tkm01zyG48c" target="_blank" rel="noopener noreferrer" aria-label="Watch Feynman Method video on YouTube">Watch on YouTube →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Yoga Stretches Section -->
+            <div class="sanctuary-section" style="margin-top: 2rem;">
+              <h3 class="sanctuary-subheading">🧘 Simple Desk Yoga & Stretches (For Sitters)</h3>
+              <p class="card-subtitle" style="margin-bottom: 1rem;">Simple physical releases to execute directly in your study chair every 2 hours</p>
+              
+              <div class="stretches-list">
+                <div class="stretch-item">
+                  <span class="stretch-num" aria-hidden="true">1</span>
+                  <div class="stretch-details">
+                    <h5>Seated Neck & Shoulder Release</h5>
+                    <p>Drop your right ear to your right shoulder, gently holding with your right hand for 15s. Repeat on the left. Roll shoulders backwards 5 times to release tension from looking down at papers.</p>
+                  </div>
+                </div>
+                
+                <div class="stretch-item">
+                  <span class="stretch-num" aria-hidden="true">2</span>
+                  <div class="stretch-details">
+                    <h5>Seated Spinal Twist</h5>
+                    <p>Sit straight. Place your right hand on your left knee, and left hand behind your chair. Gently twist left, looking over your shoulder. Breathe for 3 deep cycles, then twist right.</p>
+                  </div>
+                </div>
+                
+                <div class="stretch-item">
+                  <span class="stretch-num" aria-hidden="true">3</span>
+                  <div class="stretch-details">
+                    <h5>Desk Wrist & Forearm Flex</h5>
+                    <p>Extend your right arm forward, palm facing out, fingers down. Use left hand to gently pull fingers back for 15s. Shake wrists out to prevent strain from writing answers.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Learning Suggestions Section -->
+            <div class="sanctuary-section" style="margin-top: 2rem;">
+              <h3 class="sanctuary-subheading">⚡ Cognitive Efficiency & Free-Time Learning Suggestions</h3>
+              <p class="card-subtitle" style="margin-bottom: 1rem;">Study methods backed by cognitive neuroscience to learn smart, not hard</p>
+              
+              <div class="suggestions-grid">
+                <div class="suggestion-card">
+                  <h5>🔄 Spaced Repetition System (SRS)</h5>
+                  <p>Review lessons at expanding intervals (Day 1, Day 3, Day 7, Day 14). This transitions concepts into long-term memory, preventing last-minute exam cram panic.</p>
+                </div>
+                
+                <div class="suggestion-card">
+                  <h5>📝 Active Recall Retrieval</h5>
+                  <p>Instead of re-reading pages passively, close the book and write down everything you remember. Actively forcing retrieval creates much stronger neural paths.</p>
+                </div>
+                
+                <div class="suggestion-card">
+                  <h5>💡 The Feynman Explanation Method</h5>
+                  <p>Explain a complex syllabus topic in simple, plain language as if explaining to a 10-year-old child. If you get stuck, it immediately exposes your exact conceptual gaps.</p>
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
 
       </section>
-
+      
     </div>
   </main>
 
   <!-- Notification Toast message -->
-  <div class="toast" id="toast-message-box">
-    <span class="toast-indicator-icon">✓</span>
+  <div class="toast" id="toast-message-box" role="status" aria-live="polite">
+    <span class="toast-indicator-icon" aria-hidden="true">✓</span>
     <span id="toast-text">Wellness Profile Updated!</span>
   </div>
 
