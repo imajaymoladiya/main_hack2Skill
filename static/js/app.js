@@ -831,4 +831,171 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast("Historical logs cleared successfully.");
     }
   }
+
+  // --- AMBIENT YOGA MUSIC SYNTHESIZER (WEB AUDIO API) ---
+  let audioContext = null;
+  let mainGainNode = null;
+  let oscillators = [];
+  let isMusicPlaying = false;
+  
+  const playAmbientBtn = document.getElementById("play-ambient-btn");
+  const stopAmbientBtn = document.getElementById("stop-ambient-btn");
+  const soundSelect = document.getElementById("ambient-sound-select");
+  const volumeSlider = document.getElementById("ambient-volume-slider");
+  const volumePctLbl = document.getElementById("volume-pct-lbl");
+  
+  // Update volume label on input change
+  volumeSlider.addEventListener("input", (e) => {
+    const val = e.target.value;
+    volumePctLbl.innerText = `${val}%`;
+    if (mainGainNode && audioContext) {
+      // Scale volume safely
+      mainGainNode.gain.setValueAtTime((val / 100) * 0.15, audioContext.currentTime);
+    }
+  });
+
+  playAmbientBtn.addEventListener("click", () => {
+    startAmbientMusic();
+  });
+  
+  stopAmbientBtn.addEventListener("click", () => {
+    stopAmbientMusic();
+  });
+  
+  // Re-start music if selection changes while playing
+  soundSelect.addEventListener("change", () => {
+    if (isMusicPlaying) {
+      startAmbientMusic();
+    }
+  });
+
+  function startAmbientMusic() {
+    stopAmbientMusic(); // Clean active oscillators first
+    
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioContext = new AudioContextClass();
+      
+      // Main gain
+      mainGainNode = audioContext.createGain();
+      mainGainNode.connect(audioContext.destination);
+      
+      // Set volume
+      const currentVol = volumeSlider.value;
+      mainGainNode.gain.setValueAtTime((currentVol / 100) * 0.15, audioContext.currentTime);
+      
+      const soundType = soundSelect.value;
+      oscillators = [];
+      
+      if (soundType === "432") {
+        // Deep Inner Peace (432 Hz Solfeggio & 216 Hz Warm Drone)
+        createOscillator(432, "sine", 0.6);
+        createOscillator(216, "sine", 0.8);
+        createOscillator(434, "triangle", 0.2); // Detuned wave for natural pulsing
+      } else if (soundType === "528") {
+        // Transformation & Clarity (528 Hz Solfeggio, detuned beating)
+        createOscillator(528, "sine", 0.6);
+        createOscillator(264, "sine", 0.7);
+        createOscillator(530, "sine", 0.3); // Detuned beating wave
+      } else if (soundType === "beats") {
+        // Binaural Focus Beats (150 Hz Left, 155 Hz Right stereo beats)
+        const merger = audioContext.createChannelMerger ? audioContext.createChannelMerger(2) : null;
+        
+        // Left channel osc (150 Hz)
+        const oscLeft = audioContext.createOscillator();
+        oscLeft.type = "sine";
+        oscLeft.frequency.value = 150;
+        
+        const gainLeft = audioContext.createGain();
+        gainLeft.gain.value = 0.5;
+        
+        // Stereo panning left
+        const pannerLeft = audioContext.createStereoPanner ? audioContext.createStereoPanner() : null;
+        if (pannerLeft) {
+          pannerLeft.pan.value = -1;
+          oscLeft.connect(gainLeft);
+          gainLeft.connect(pannerLeft);
+          pannerLeft.connect(mainGainNode);
+        } else {
+          oscLeft.connect(gainLeft);
+          gainLeft.connect(mainGainNode);
+        }
+        
+        oscLeft.start(0);
+        oscillators.push(oscLeft);
+        
+        // Right channel osc (155 Hz)
+        const oscRight = audioContext.createOscillator();
+        oscRight.type = "sine";
+        oscRight.frequency.value = 155;
+        
+        const gainRight = audioContext.createGain();
+        gainRight.gain.value = 0.5;
+        
+        // Stereo panning right
+        const pannerRight = audioContext.createStereoPanner ? audioContext.createStereoPanner() : null;
+        if (pannerRight) {
+          pannerRight.pan.value = 1;
+          oscRight.connect(gainRight);
+          gainRight.connect(pannerRight);
+          pannerRight.connect(mainGainNode);
+        } else {
+          oscRight.connect(gainRight);
+          gainRight.connect(mainGainNode);
+        }
+        
+        oscRight.start(0);
+        oscillators.push(oscRight);
+      }
+      
+      isMusicPlaying = true;
+      playAmbientBtn.disabled = true;
+      stopAmbientBtn.disabled = false;
+      playAmbientBtn.innerText = "🔊 Playing...";
+      
+    } catch (e) {
+      console.error("Audio Context initiation blocked:", e);
+      alert("Ambient player is blocked by browser interaction restrictions or is unsupported.");
+    }
+  }
+  
+  function createOscillator(freq, type, gainVal) {
+    if (!audioContext || !mainGainNode) return;
+    
+    const osc = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    osc.type = type;
+    osc.frequency.value = freq;
+    gainNode.gain.value = gainVal;
+    
+    osc.connect(gainNode);
+    gainNode.connect(mainGainNode);
+    
+    osc.start(0);
+    oscillators.push(osc);
+  }
+  
+  function stopAmbientMusic() {
+    if (oscillators && oscillators.length > 0) {
+      oscillators.forEach(osc => {
+        try {
+          osc.stop();
+        } catch (e) {}
+      });
+      oscillators = [];
+    }
+    
+    if (audioContext) {
+      try {
+        audioContext.close();
+      } catch (e) {}
+      audioContext = null;
+    }
+    
+    isMusicPlaying = false;
+    playAmbientBtn.disabled = false;
+    stopAmbientBtn.disabled = true;
+    playAmbientBtn.innerText = "▶ Play Soundscape";
+  }
 });

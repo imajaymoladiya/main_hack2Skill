@@ -400,45 +400,76 @@
             <h2 class="section-title">💡 Stress Relief Sanctuary</h2>
             <p class="card-subtitle" style="margin-bottom: 1.5rem;">Take a cognitive break: Curated study suggestions, desk stretches, and motivational videos to recharge your mind.</p>
             
+            <!-- Ambient Meditation Music Player Widget -->
+            <div class="card music-player-card" role="region" aria-labelledby="ambient-music-heading">
+              <h3 class="sanctuary-subheading" id="ambient-music-heading">🎵 Yoga & Meditation Soundscapes</h3>
+              <p class="card-subtitle" style="margin-bottom: 1rem;">Synthesize calming healing frequencies directly in your browser to accompany your desk stretches</p>
+              
+              <div class="music-player-controls">
+                <div class="player-select-group">
+                  <select class="select-input" id="ambient-sound-select" style="max-width: 250px; margin-bottom: 0;" aria-label="Select healing Solfeggio frequency">
+                    <option value="432">432 Hz Solfeggio (Deep Inner Peace)</option>
+                    <option value="528">528 Hz Solfeggio (Transformation & Clarity)</option>
+                    <option value="beats">Calming Binaural Study Beats</option>
+                  </select>
+                </div>
+                
+                <div class="player-buttons-group">
+                  <button class="btn btn-primary" id="play-ambient-btn" aria-label="Play ambient yoga music">▶ Play Soundscape</button>
+                  <button class="btn btn-secondary" id="stop-ambient-btn" disabled aria-label="Stop ambient yoga music">⏹ Stop</button>
+                </div>
+                
+                <div class="player-volume-group">
+                  <span class="volume-icon" aria-hidden="true">🔊</span>
+                  <input type="range" id="ambient-volume-slider" min="0" max="100" value="50" class="volume-slider" aria-label="Change soundscape volume">
+                  <span id="volume-pct-lbl" class="volume-pct">50%</span>
+                </div>
+              </div>
+            </div>
+
             <!-- Video Recommendations -->
-            <div class="sanctuary-section">
+            <div class="sanctuary-section" style="margin-top: 2rem;">
               <h3 class="sanctuary-subheading">🎥 Curated Relaxation & Motivation Videos</h3>
-              <p class="card-subtitle" style="margin-bottom: 1rem;">Handpicked resources to lower exam anxiety and rebuild focus</p>
+              <p class="card-subtitle" style="margin-bottom: 1rem;">Watch resources directly on the platform to lower exam anxiety and rebuild focus</p>
               
               <div class="video-grid">
-                <div class="video-card">
-                  <span class="video-icon" aria-hidden="true">🧘‍♂️</span>
+                <div class="video-card card-with-embed">
+                  <div class="video-embed-container">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/A0pkEgZiCNY" title="Yoga For Test Anxiety & Exam Stress" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                   <div class="video-info">
                     <h4>Yoga For Test Anxiety & Exam Stress</h4>
                     <p>Gentle desk-friendly stretches designed to release neck, shoulder, and back tension from sitting.</p>
-                    <a class="video-link" href="https://www.youtube.com/watch?v=A0pkEgZiCNY" target="_blank" rel="noopener noreferrer" aria-label="Watch Yoga for Stress Relief video on YouTube">Watch on YouTube →</a>
                   </div>
                 </div>
                 
-                <div class="video-card">
-                  <span class="video-icon" aria-hidden="true">🧠</span>
+                <div class="video-card card-with-embed">
+                  <div class="video-embed-container">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/mD0jGzQirGE" title="Neuroscience of Focus & Study Breaks" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                   <div class="video-info">
                     <h4>Neuroscience of Focus & Study Breaks</h4>
                     <p>Learn how to optimize memory consolidation and rest intervals to study for exams with high concentration.</p>
-                    <a class="video-link" href="https://www.youtube.com/watch?v=mD0jGzQirGE" target="_blank" rel="noopener noreferrer" aria-label="Watch Neuroscience of Focus video on YouTube">Watch on YouTube →</a>
                   </div>
                 </div>
                 
-                <div class="video-card">
-                  <span class="video-icon" aria-hidden="true">🎼</span>
+                <div class="video-card card-with-embed">
+                  <div class="video-embed-container">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/WPni755-Krg" title="Binaural Beats for Deep Study & Memory" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                   <div class="video-info">
                     <h4>Binaural Beats for Deep Study & Memory</h4>
                     <p>Calming frequency loops to block household noise, improve memory recall, and soothe exam panic.</p>
-                    <a class="video-link" href="https://www.youtube.com/watch?v=WPni755-Krg" target="_blank" rel="noopener noreferrer" aria-label="Listen to Deep Study Binaural Beats on YouTube">Listen on YouTube →</a>
                   </div>
                 </div>
                 
-                <div class="video-card">
-                  <span class="video-icon" aria-hidden="true">⚡</span>
+                <div class="video-card card-with-embed">
+                  <div class="video-embed-container">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/tkm01zyG48c" title="Feynman Method & Active Learning Hacks" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                   <div class="video-info">
                     <h4>Feynman Method & Active Learning Hacks</h4>
                     <p>Study less and remember more. A psychological guide to cracking heavy entrance syllabus chapters.</p>
-                    <a class="video-link" href="https://www.youtube.com/watch?v=tkm01zyG48c" target="_blank" rel="noopener noreferrer" aria-label="Watch Feynman Method video on YouTube">Watch on YouTube →</a>
                   </div>
                 </div>
               </div>
