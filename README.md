@@ -1,5 +1,8 @@
 # ZenExam AI 🧘
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/imajaymoladiya/main_hack2Skill)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/imajaymoladiya/main_hack2Skill)
+
 ZenExam AI is a premium, generative AI-powered student mental wellness companion designed to support students preparing for high-stakes board exams and competitive entrance tests (e.g., NEET, JEE, CUET, CAT, GATE, UPSC). 
 
 Students preparing for these career-defining milestones face immense pressure, anxiety, mock exam stress, syllabus backlog paralysis, and burnout. ZenExam AI provides a secure, glassmorphic single-page wellness panel featuring dynamic stress triggers analysis, cognitive distortion tracking, a real-time empathetic conversation companion, guided box-breathing, and a focus Pomodoro study tracker.
