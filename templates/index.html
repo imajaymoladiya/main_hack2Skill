@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ZenExam AI - Empathetic student wellness tracker, conversational companion, and stress triggers analyzer for JEE, NEET, UPSC, GATE and board exams.">
+  <title>ZenExam AI | Student Mental Wellness Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+
+  <!-- Background decorative glowing orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="logo-container">
+      <span class="logo-icon">🧘</span>
+      <div>
+        <h1>ZenExam AI</h1>
+        <p class="subtitle">Academic Journey Wellness Companion & Stress Analyzer</p>
+      </div>
+    </div>
+    <div class="status-badge" id="backend-status-badge">
+      <span class="pulse-dot"></span> Checking connection...
+    </div>
+  </header>
+
+  <!-- Main Dashboard Grid -->
+  <main>
+    <div class="layout-grid">
+      
+      <!-- Left Configuration & Mindfulness Sidebar -->
+      <aside class="sidebar-column">
+        
+        <!-- Prep Configuration Card -->
+        <section class="card config-card" id="config-card-sec">
+          <h2 class="section-title"><span>⚙️</span> Prep Profile</h2>
+          <form id="wellness-config-form" onsubmit="event.preventDefault();">
+            
+            <!-- Exam Selector -->
+            <div class="form-group">
+              <label class="form-label" for="exam-select">Competitive Entrance / Board Exam</label>
+              <select class="select-input" id="exam-select" name="exam">
+                <option value="JEE">JEE (Joint Entrance Examination)</option>
+                <option value="NEET">NEET (National Eligibility cum Entrance Test)</option>
+                <option value="UPSC">UPSC Civil Services Examination</option>
+                <option value="GATE">GATE (Graduate Aptitude Test in Engineering)</option>
+                <option value="CAT">CAT (Common Admission Test)</option>
+                <option value="CUET">CUET (Common University Entrance Test)</option>
+                <option value="Other">Board Exams / Other competitive tests</option>
+              </select>
+            </div>
+
+            <!-- Mood Selector -->
+            <div class="form-group">
+              <label class="form-label">How do you feel right now?</label>
+              <div class="mood-selector-grid">
+                <div class="mood-radio-item">
+                  <input type="radio" id="mood-calm" name="mood" value="calm" checked>
+                  <label for="mood-calm" class="mood-label">
+                    <span class="mood-emoji">😌</span>
+                    <span class="mood-name">Calm</span>
+                  </label>
+                </div>
+                <div class="mood-radio-item">
+                  <input type="radio" id="mood-anxious" name="mood" value="anxious">
+                  <label for="mood-anxious" class="mood-label">
+                    <span class="mood-emoji">😰</span>
+                    <span class="mood-name">Anxious</span>
+                  </label>
+                </div>
+                <div class="mood-radio-item">
+                  <input type="radio" id="mood-focused" name="mood" value="focused">
+                  <label for="mood-focused" class="mood-label">
+                    <span class="mood-emoji">🎯</span>
+                    <span class="mood-name">Focused</span>
+                  </label>
+                </div>
+                <div class="mood-radio-item">
+                  <input type="radio" id="mood-burned_out" name="mood" value="burned_out">
+                  <label for="mood-burned_out" class="mood-label">
+                    <span class="mood-emoji">😫</span>
+                    <span class="mood-name">Burned Out</span>
+                  </label>
+                </div>
+                <div class="mood-radio-item">
+                  <input type="radio" id="mood-hopeful" name="mood" value="hopeful">
+                  <label for="mood-hopeful" class="mood-label">
+                    <span class="mood-emoji">🌟</span>
+                    <span class="mood-name">Hopeful</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Mindfulness Breathing Card -->
+        <section class="card mindfulness-card" id="mindfulness-card-sec">
+          <h2 class="section-title"><span>🧘‍♀️</span> Guided Box Breathing</h2>
+          <p class="card-subtitle">De-escalate study pressure instantly (4s Inhale, 4s Hold, 4s Exhale, 4s Hold)</p>
+          
+          <div class="breathing-container">
+            <div class="breathing-circle-outer">
+              <div class="breathing-circle-inner" id="breathing-circle"></div>
+              <div class="breathing-guide-text" id="breathing-guide">Ready</div>
+            </div>
+            <div class="breathing-progress-ring" id="breathing-timer">Cycle 1/4</div>
+          </div>
+          
+          <div class="breathing-controls">
+            <button class="btn btn-primary" id="start-breathing-btn">✨ Start Exercise</button>
+            <button class="btn btn-secondary" id="stop-breathing-btn" disabled>Pause</button>
+          </div>
+        </section>
+
+        <!-- Pomodoro Study/Rest Card -->
+        <section class="card pomodoro-card" id="pomodoro-card-sec">
+          <h2 class="section-title"><span>⏱️</span> Pomodoro Study Timer</h2>
+          <p class="card-subtitle">Maintain high mental accuracy by taking structured breaks</p>
+          
+          <div class="timer-display-container">
+            <div class="timer-display" id="timer-display">25:00</div>
+            <div class="timer-type-badge" id="timer-badge">Study Session</div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="timer-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="timer-start-btn">Start Study</button>
+            <button class="btn btn-secondary" id="timer-break-btn">Take Break</button>
+            <button class="btn btn-outline" id="timer-reset-btn">Reset</button>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right Tabbed Dashboard Content Column -->
+      <section class="main-content-column">
+        
+        <!-- Navigation Tabs -->
+        <nav class="navigation-tabs">
+          <button class="tab-btn active" data-tab="tab-journal" id="nav-journal-btn">📝 Daily Journal & Analysis</button>
+          <button class="tab-btn" data-tab="tab-chat" id="nav-chat-btn">💬 MindBuddy AI Chat</button>
+          <button class="tab-btn" data-tab="tab-history" id="nav-history-btn">📊 Wellness Analytics Log</button>
+        </nav>
+
+        <!-- Tab 1: Journaling & Analysis Content -->
+        <div class="tab-content active" id="tab-journal">
+          
+          <!-- Journaling Write Card -->
+          <div class="card journal-entry-card">
+            <h2 class="section-title" style="margin-bottom: 0.5rem;">Express Your Mind</h2>
+            <p class="card-subtitle" style="margin-bottom: 1.25rem;">
+              Write freely about your day: mock test results, study schedules, anxiety levels, peer comparisons, or family expectations. GenAI will analyze stress patterns that standard logs miss.
+            </p>
+            
+            <textarea class="journal-textarea" id="journal-text-input" 
+              placeholder="How are your preparations going? (e.g. 'I scored poorly on my physics mock test today and feel like I'll never clear JEE. My parents have high expectations and I have a huge backlog in organic chemistry...')"
+            ></textarea>
+            
+            <div class="journal-btn-row">
+              <button class="btn btn-primary" id="analyze-journal-btn" style="padding: 0.85rem 2rem;">
+                ✨ Analyze Stress Triggers & Emotional State
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card Area -->
+          <div class="analysis-results-wrapper">
+            
+            <!-- State A: Placeholder View -->
+            <div class="results-state-card" id="analysis-placeholder">
+              <div class="state-icon">📋</div>
+              <h3>Waiting for Journal Entry</h3>
+              <p>Type your daily notes above and click 'Analyze' to uncover stress triggers, cognitive errors, emotional distributions, and get custom study coping methods.</p>
+            </div>
+
+            <!-- State B: Loading View -->
+            <div class="results-state-card" id="analysis-loading" style="display: none;">
+              <div class="loader-ring">
+                <div></div><div></div><div></div><div></div>
+                <span class="loader-glow">🧠</span>
+              </div>
+              <h3>AI Analyzing Wellness Metrics...</h3>
+              <ul class="loading-progress-steps">
+                <li id="step-1" class="loading-step active">Analyzing exam preparation patterns...</li>
+                <li id="step-2" class="loading-step">Identifying hidden cognitive distortion markers...</li>
+                <li id="step-3" class="loading-step">Evaluating stress and burnout levels...</li>
+                <li id="step-4" class="loading-step">Customizing emotional coping tactics...</li>
+              </ul>
+            </div>
+
+            <!-- State C: Analysis Report Output -->
+            <div class="analysis-report" id="analysis-report-view" style="display: none;">
+              
+              <!-- Crisis Safety Intervention (Visible only on trigger) -->
+              <div class="safety-intervention-card" id="safety-warning-box" style="display: none;">
+                <div class="safety-header">
+                  <span class="safety-alert-icon">⚠️</span>
+                  <div>
+                    <h4>Immediate Crisis Intervention Notice</h4>
+                    <p>It seems you are feeling extremely overwhelmed. Your safety is our absolute priority.</p>
+                  </div>
+                </div>
+                <div class="safety-body">
+                  <p id="safety-message-text"></p>
+                  <h5>Available Helplines & Support Networks:</h5>
+                  <div class="helpline-grid" id="safety-helplines-list">
+                    <!-- Loaded dynamically -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- General Analytics Breakdown (Hidden on safety trigger) -->
+              <div id="general-report-metrics">
+                
+                <!-- Headline Metrics Row -->
+                <div class="metrics-row">
+                  <!-- Stress Level -->
+                  <div class="card metric-card">
+                    <span class="metric-icon">🔥</span>
+                    <div class="metric-info">
+                      <div class="metric-value" id="val-stress-level">7/10</div>
+                      <div class="metric-label">Stress Level</div>
+                    </div>
+                    <div class="gauge-outer">
+                      <div class="gauge-fill" id="stress-gauge-bar" style="width: 70%;"></div>
+                    </div>
+                  </div>
+                  <!-- Burnout Risk -->
+                  <div class="card metric-card">
+                    <span class="metric-icon">⚠️</span>
+                    <div class="metric-info">
+                      <div class="metric-value" id="val-burnout-risk">High</div>
+                      <div class="metric-label">Burnout Risk</div>
+                    </div>
+                    <div class="burnout-badge" id="burnout-badge-lbl">Burnout Zone</div>
+                  </div>
+                </div>
+
+                <!-- Emotional Spectrum Charts -->
+                <div class="card analysis-card">
+                  <h3 class="analysis-card-title">Emotional State Spectrum</h3>
+                  <p class="card-subtitle" style="margin-bottom: 1.25rem;">Real-time balance of key study states</p>
+                  
+                  <div class="emotion-bars-container" id="emotion-distribution-bars">
+                    <!-- Progress bars loaded dynamically -->
+                  </div>
+                </div>
+
+                <!-- Secondary Report Grid -->
+                <div class="secondary-analysis-grid">
+                  <!-- Left: Triggers and Distortions -->
+                  <div class="card analysis-card">
+                    <h3 class="analysis-card-title">Stress Triggers & Distortions</h3>
+                    <p class="card-subtitle" style="margin-bottom: 1.25rem;">Hidden pressure points standard logs miss</p>
+                    
+                    <div class="analysis-bullet-section">
+                      <h4>🔍 Primary Triggers</h4>
+                      <ul class="analysis-bullet-list" id="triggers-list">
+                        <!-- Loaded dynamically -->
+                      </ul>
+                    </div>
+                    
+                    <div class="analysis-bullet-section" style="margin-top: 1.25rem;">
+                      <h4>🧠 Cognitive Distortion Markers</h4>
+                      <ul class="analysis-bullet-list" id="patterns-list">
+                        <!-- Loaded dynamically -->
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Right: Empathetic Insight & Motivation -->
+                  <div class="card analysis-card insight-bg-card">
+                    <h3 class="analysis-card-title">MindBuddy's Core Insight</h3>
+                    <p class="empathetic-insight-text" id="insight-text-box">
+                      <!-- Loaded dynamically -->
+                    </p>
+                    
+                    <div class="motivation-quote-box" id="motivation-box">
+                      <span class="quote-mark">“</span>
+                      <p class="quote-text" id="motivation-text-lbl"></p>
+                      <span class="exam-tag" id="exam-tag-lbl">JEE PREP</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Coping Actions & Mindfulness -->
+                <div class="card analysis-card">
+                  <h3 class="analysis-card-title">Personalized Coping & Mindfulness Plan</h3>
+                  <p class="card-subtitle" style="margin-bottom: 1.25rem;">Contextual exercises to reduce physiological anxiety</p>
+                  
+                  <div class="coping-strategies-grid" id="coping-strategies-container">
+                    <!-- Action Cards loaded dynamically -->
+                  </div>
+
+                  <div class="mindfulness-exercise-panel" id="mindfulness-exercise-panel">
+                    <div class="ex-icon">🧘‍♂️</div>
+                    <div class="ex-details">
+                      <h4 id="exercise-name-lbl">Mindfulness Anchor</h4>
+                      <p id="exercise-instructions-lbl"></p>
+                      <span class="ex-duration" id="exercise-duration-lbl">Duration: 5 Mins</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div> <!-- End of General Metrics -->
+
+            </div> <!-- End of Output View -->
+
+          </div>
+        </div>
+
+        <!-- Tab 2: Companion Chat Content -->
+        <div class="tab-content" id="tab-chat">
+          <div class="card chat-card-container">
+            
+            <div class="chat-header">
+              <span class="chat-avatar">🤖</span>
+              <div>
+                <h3>Chat with MindBuddy</h3>
+                <p class="card-subtitle" style="color: rgba(255,255,255,0.6);">Your empathetic digital companion for {Exam} prep support</p>
+              </div>
+            </div>
+
+            <!-- Messages Window -->
+            <div class="chat-messages-window" id="chat-messages-container">
+              <!-- Automated Welcome Message -->
+              <div class="message companion-message">
+                <div class="message-bubble">
+                  Welcome! I'm MindBuddy, your empathetic wellness companion. Tell me how you're feeling, what syllabus targets are stressing you, or if you just need a quiet break. I'm here for you.
+                </div>
+              </div>
+            </div>
+
+            <!-- Suggested chips -->
+            <div class="chat-suggested-prompts" id="chat-suggestion-chips">
+              <button class="suggestion-chip">I feel exam panic</button>
+              <button class="suggestion-chip">Struggling to focus today</button>
+              <button class="suggestion-chip">I failed a mock test</button>
+            </div>
+
+            <!-- Input bar -->
+            <div class="chat-input-bar">
+              <input type="text" class="chat-input-field" id="chat-user-input" placeholder="Type your message here (e.g. 'How do I cope with backlog stress?')...">
+              <button class="btn btn-primary chat-send-btn" id="chat-send-btn">Send</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tab 3: History Analysis Logs -->
+        <div class="tab-content" id="tab-history">
+          <div class="card history-card-container">
+            <h2 class="section-title">Preparation Stress Timeline</h2>
+            <p class="card-subtitle" style="margin-bottom: 1.5rem;">Track how your stress level and burnout zones evolve through your mock tests and studies</p>
+            
+            <div class="history-metrics-summary">
+              <div class="h-metric-box">
+                <span class="h-metric-title">Journals Logged</span>
+                <span class="h-metric-value" id="history-count">0</span>
+              </div>
+              <div class="h-metric-box">
+                <span class="h-metric-title">Average Stress Level</span>
+                <span class="h-metric-value" id="history-avg-stress">0/10</span>
+              </div>
+              <div class="h-metric-box">
+                <span class="h-metric-title">Most Frequent Trigger</span>
+                <span class="h-metric-value" id="history-top-trigger">None</span>
+              </div>
+            </div>
+
+            <!-- History Logs list -->
+            <div class="history-list" id="history-logs-list">
+              <!-- Logs rendered dynamically -->
+              <div class="empty-history-placeholder">
+                <span class="empty-icon">📈</span>
+                <p>No historical entries found yet. Complete your first journal analysis under the "Daily Journal" tab to begin tracking patterns over time.</p>
+              </div>
+            </div>
+
+            <div class="history-actions-row" id="history-actions-bar" style="display: none; margin-top: 1.5rem; justify-content: flex-end;">
+              <button class="btn btn-outline" id="clear-history-btn" style="border-color: rgba(239, 68, 68, 0.4); color: #ef4444;">Clear History Logs</button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Notification Toast message -->
+  <div class="toast" id="toast-message-box">
+    <span class="toast-indicator-icon">✓</span>
+    <span id="toast-text">Wellness Profile Updated!</span>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
