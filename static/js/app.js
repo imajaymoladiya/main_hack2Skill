@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentStressLevel = 5;
   let currentTriggers = [];
   let chatHistory = [];
+  let activeLanguage = "English";
   
   // Timer States
   let pomodoroTimer = null;
@@ -64,6 +65,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatSendBtn = document.getElementById("chat-send-btn");
   const chatSuggestionChips = document.getElementById("chat-suggestion-chips");
   const chatAvatar = document.querySelector(".chat-avatar");
+  const chatLanguageSelect = document.getElementById("chat-language-select");
+
+  const WELCOME_MESSAGES = {
+    English: "Welcome! I'm MindBuddy, your empathetic wellness companion. Tell me how you're feeling, what syllabus targets are stressing you, or if you just need a quiet break. I'm here for you.",
+    Hindi: "नमस्ते! मैं हूँ माइंडबडी, आपका सहायक वैलनेस साथी। मुझे बताएं कि आप कैसा महसूस कर रहे हैं, सिलेबस में क्या तनाव है, या यदि आपको एक छोटा सा ब्रेक चाहिए। मैं यहाँ आपके लिए हूँ।",
+    Hinglish: "Namaste! Main hoon MindBuddy, aapka empathetic wellness companion. Mujhe bataiye aap kaisa feel kar rahe hain, kya syllabus target aapko stress de raha hai, ya agar aapko ek chota study break chahiye. Main aapke saath hoon.",
+    Spanish: "¡Bienvenido! Soy MindBuddy, tu compañero de bienestar empático. Dime cómo te sientes, qué objetivos del plan de estudios te están estresando o si solo necesitas un descanso tranquilo. Estoy aquí para ti.",
+    Marathi: "नमस्कार! मी माइंडबडी, तुमचा वेलनेस सोबती आहे. तुम्हाला कसे वाटत आहे, कोणत्या अभ्यासक्रमामुळे ताण येत आहे, किंवा तुम्हाला एक छोटा ब्रेक हवा असल्यास मला सांगा. मी तुमच्यासाठी येथे आहे.",
+    Tamil: "வணக்கம்! நான் மைண்ட்படி, உங்களது நல சோபதி. நீங்கள் எப்படி உணர்கிறீர்கள், எந்த பாடத்திட்டம் உங்களுக்கு அழுத்தத்தை தருகிறது, அல்லது உங்களுக்கு ஒரு அமைதியான இடைவெளி வேண்டுமா என்று என்னிடம் கூறுங்கள். நான் உங்களுக்காக இங்கே இருக்கிறேன்.",
+    Telugu: "నమస్కారం! నేను మైండ్‌బడ్డీ, మీ వెల్‌నెస్ సోపతి. మీరు ఎలా భావిస్తున్నారు, సిలబస్ లో ఏది ఒత్తిడి కలిగిస్తుంది లేదా మీకు ఒక చిన్న విరామం కావాలంటే నాకు చెప్పండి. నేను మీ కోసం ఇక్కడే ఉన్నాను.",
+    French: "Bienvenue ! Je suis MindBuddy, votre compagnon de bien-être empathique. Dites-moi comment vous vous sentez, quels objectifs de programme vous stressent, ou si vous avez simplement besoin d'une pause calme. Je suis là pour vous.",
+    German: "Willkommen! Ich bin MindBuddy, dein einfühlsamer Wellness-Begleiter. Erzähle mir, wie du dich fühlst, welche Lehrplanziele dich stressen oder ob du einfach eine ruhige Pause brauchen. Ich bin für dich da."
+  };
+
+  const WELCOME_CHIPS = {
+    English: ["I feel exam panic", "Struggling to focus today", "I failed a mock test"],
+    Hindi: ["मुझे परीक्षा का डर है", "आज ध्यान नहीं लग रहा", "मॉक टेस्ट खराब गया"],
+    Hinglish: ["Exam panic ho raha hai", "Focus nahi ban raha", "Mock test kharab gaya"],
+    Spanish: ["Tengo pánico del examen", "Me cuesta concentrarme hoy", "Fallé un simulacro"],
+    Marathi: ["मला परीक्षेची भीती वाटते", "आज अभ्यासात लक्ष नाही", "मॉक टेस्ट खराब झाली"],
+    Tamil: ["பரீட்சை பயமாக இருக்கிறது", "கவனம் செலுத்த முடியவில்லை", "மாதிரி தேர்வு தோல்வி"],
+    Telugu: ["పరీక్ష భయంగా ఉంది", "ఈ రోజు దృష్టి పెట్టలేకపోతున్నా", "మొదటి మాక్ టెస్ట్ విఫలమైంది"],
+    French: ["Panique de l'examen", "Difficulté à me concentrer", "J'ai raté un examen blanc"],
+    German: ["Prüfungspanik", "Kann mich heute nicht fokussieren", "Fehlgeschlagener Test"]
+  };
   
   // Guided Breathing
   const startBreathingBtn = document.getElementById("start-breathing-btn");
@@ -164,6 +190,28 @@ document.addEventListener("DOMContentLoaded", () => {
       sendChatMessage();
     }
   });
+
+  // Chat Language dropdown select change listener
+  if (chatLanguageSelect) {
+    chatLanguageSelect.addEventListener("change", (e) => {
+      activeLanguage = e.target.value;
+      showToast(`Chat language set to ${activeLanguage}`);
+      
+      // Clear chat messages container
+      chatMessagesContainer.innerHTML = "";
+      
+      // Reset chat history state
+      chatHistory = [];
+      
+      // Append localized welcome message
+      const welcomeText = WELCOME_MESSAGES[activeLanguage] || WELCOME_MESSAGES.English;
+      appendMessage("companion", welcomeText);
+      
+      // Render localized quick chips
+      const welcomeChips = WELCOME_CHIPS[activeLanguage] || WELCOME_CHIPS.English;
+      renderSuggestionChips(welcomeChips);
+    });
+  }
 
   // Breathing controls
   startBreathingBtn.addEventListener("click", startBreathingExercise);
@@ -517,7 +565,8 @@ document.addEventListener("DOMContentLoaded", () => {
           messages: chatHistory,
           exam: activeExam,
           stress_level: currentStressLevel,
-          triggers: currentTriggers
+          triggers: currentTriggers,
+          language: activeLanguage
         })
       });
       
@@ -998,4 +1047,101 @@ document.addEventListener("DOMContentLoaded", () => {
     stopAmbientBtn.disabled = true;
     playAmbientBtn.innerText = "▶ Play Soundscape";
   }
+
+  // --- ZEN BUBBLE POPPER GAME ---
+  const bubbleGridBoard = document.getElementById("bubble-grid-board");
+  const popCountLbl = document.getElementById("pop-count-lbl");
+  const bubblesLeftLbl = document.getElementById("bubbles-left-lbl");
+  const resetGameBtn = document.getElementById("reset-game-btn");
+  
+  let poppedCount = 0;
+  const TOTAL_BUBBLES = 36;
+  
+  if (resetGameBtn) {
+    resetGameBtn.addEventListener("click", () => {
+      initBubblePopper();
+      showToast("Bubble wrap board reset!");
+    });
+  }
+  
+  function initBubblePopper() {
+    if (!bubbleGridBoard) return;
+    
+    bubbleGridBoard.innerHTML = "";
+    poppedCount = 0;
+    
+    if (popCountLbl) popCountLbl.innerText = "0 Pops";
+    if (bubblesLeftLbl) bubblesLeftLbl.innerText = `${TOTAL_BUBBLES} Left`;
+    
+    for (let i = 0; i < TOTAL_BUBBLES; i++) {
+      const bubble = document.createElement("button");
+      bubble.className = "bubble-wrap-item";
+      bubble.setAttribute("role", "gridcell");
+      bubble.setAttribute("aria-label", `Bubble ${i + 1}. Press to pop.`);
+      bubble.setAttribute("aria-pressed", "false");
+      
+      bubble.addEventListener("click", () => {
+        if (bubble.classList.contains("popped")) return;
+        
+        // Mark as popped & play animation
+        bubble.classList.add("popping", "popped");
+        bubble.setAttribute("aria-pressed", "true");
+        
+        // Synthesize Pop sound in real-time
+        playPopSynthChime();
+        
+        // Increment stats
+        poppedCount++;
+        if (popCountLbl) popCountLbl.innerText = `${poppedCount} Pops`;
+        if (bubblesLeftLbl) bubblesLeftLbl.innerText = `${TOTAL_BUBBLES - poppedCount} Left`;
+        
+        // Clean up animation class
+        setTimeout(() => {
+          bubble.classList.remove("popping");
+        }, 250);
+        
+        // If all popped
+        if (poppedCount === TOTAL_BUBBLES) {
+          setTimeout(() => {
+            showToast("🌟 All bubbles popped! Excellent stress release.");
+            playPeacefulChime();
+          }, 300);
+        }
+      });
+      
+      bubbleGridBoard.appendChild(bubble);
+    }
+  }
+  
+  function playPopSynthChime() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      osc.type = "sine";
+      
+      // Quick pitch ramp (low to high, mimics bubble snap)
+      osc.frequency.setValueAtTime(600, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1400, ctx.currentTime + 0.06);
+      
+      // Rapid decay gain
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.07);
+    } catch (e) {
+      console.log("Audio play blocked by browser policies:", e);
+    }
+  }
+  
+  // Initialize game on load
+  initBubblePopper();
 });

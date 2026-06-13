@@ -112,5 +112,30 @@ class ZenExamTestCase(unittest.TestCase):
         self.assertTrue(data.get('is_safety_trigger'))
         self.assertIn('helplines', data)
 
+    def test_chat_multilingual(self):
+        """Test that the chat API processes different languages and returns localized fallback replies."""
+        languages = ["Hindi", "Hinglish", "Spanish", "French"]
+        for lang in languages:
+            payload = {
+                "messages": [
+                    {"role": "user", "content": "hello"}
+                ],
+                "exam": "NEET",
+                "stress_level": 5,
+                "triggers": ["General stress"],
+                "language": lang
+            }
+            response = self.client.post(
+                '/api/chat',
+                data=json.dumps(payload),
+                content_type='application/json'
+            )
+            self.assertEqual(response.status_code, 200)
+            data = json.loads(response.data.decode('utf-8'))
+            
+            self.assertIn('reply', data)
+            self.assertIn('suggested_quick_prompts', data)
+            self.assertGreater(len(data['suggested_quick_prompts']), 0)
+
 if __name__ == '__main__':
     unittest.main()
